@@ -1,29 +1,17 @@
-// var ip;
-
-// ip = ('');
-
-
-
-// var timer=setInterval(function(){
-//   var xmlHttp = new XMLHttpRequest();
-  // xmlHttp.open( 'GET',  ip , false );
-  // xmlHttp.send( null );
-  // var data = JSON.parse(xmlHttp.responseText);
-  // sensor_number = data.sensors.length;
-
-// },16);
-
 (function () {
   "use strict";
 
-  function App (url, ui) {
-    this.url = url || "http://localhost:8765";
+  function App (ui) {
     this.ui = ui;
+    this.url = this.ui.getUrl();
     this.dataHistory = [];
     this.historySize = 60;
-    this.pullEvery = 16;
+    // this.pullEvery = 16;
+    this.pullEvery = 1000;
 
-    this.start(this.url);
+    this.ui.app = this;
+
+    // this.start(this.url);
   }
 
   App.prototype = {
@@ -32,7 +20,6 @@
       xmlHttp.open("GET", url, false);
       xmlHttp.send(null);
       var data = JSON.parse(xmlHttp.responseText);
-      // console.log(data);
 
       return data;
     },
@@ -65,6 +52,13 @@
     this.frontAngleEl = this.root.querySelector("#sensor-forward-angle-value");
     this.sideAngleEl = this.root.querySelector("#sensor-side-angle-value");
     this.forceEl = this.root.querySelector("#sensor-force-value");
+
+    this.urlFormEl = this.root.querySelector("#url-form");
+    this.createUrlListener();
+
+    this.history = [];
+
+    this.setupNav();
   }
 
   UI.prototype = {
@@ -72,9 +66,60 @@
       this.frontAngleEl.innerHTML = forwardAngle.toPrecision(3);
       this.sideAngleEl.innerHTML = sideAngle.toPrecision(3);
       this.forceEl.innerHTML = force.toPrecision(3);
+    },
+
+    createUrlListener: function () {
+      this.urlFormEl.onsubmit = function (e) {
+        e.preventDefault();
+        this.app.url = this.getUrl();
+      }.bind(this);
+    },
+
+    setupNav: function () {
+      this.backEl = this.root.querySelector(".nav .back");
+      this.navigate("#home");
+
+      this.backEl.addEventListener("click", function () {
+        window.history.back();
+      }.bind(this));
+
+      window.onpopstate = function (e) {
+        this.loadPage(e.state.page);
+      }.bind(this);
+
+      Array.prototype.forEach.call(this.root.querySelectorAll(".button"), function (el) {
+
+        if (el.dataset.goto !== null && typeof el.dataset.goto !== "undefined") {
+          el.addEventListener("click", function () {
+            this.navigate(el.dataset.goto);
+          }.bind(this));
+        }
+      }.bind(this));
+    },
+
+    getUrl: function () {
+      return this.urlFormEl.querySelector("#url").value;
+    },
+
+    navigate: function (pageSelector) {
+      if (pageSelector === null || typeof pageSelector === "undefined" || pageSelector === "") {
+        this.navigate("#home");
+      } else {
+        window.history.pushState({ page: pageSelector }, "");
+        this.loadPage(pageSelector);
+      }
+    },
+
+    loadPage: function (pageSelector) {
+
+      console.log("going to ", pageSelector)
+      Array.prototype.forEach.call(this.root.querySelectorAll(".page"), function (el) {
+        el.style.display = "none";
+      });
+      this.root.querySelector(pageSelector).style.display = "";
     }
   };
 
   var ui = new UI(document);
-  new App("http://192.168.1.190:8765", ui);
+  new App(ui);
 }());

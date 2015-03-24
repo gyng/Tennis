@@ -12,7 +12,7 @@
 
 <body>
   <ul class="nav">
-    <li class="button">Back</li>
+    <li class="button back">Back</li>
     <li>
       <ul class="serve-type-toggle">
         <li class="button">Flat</li>
@@ -23,7 +23,26 @@
     <li class="button">Pin Last</li>
   </ul>
 
-  <div class="serve">
+  <div class="page" id="home">
+    <div class="button" data-goto="#start-serving">Practice</div>
+    <div class="button" data-goto="#log">Log</div>
+  </div>
+
+  <div class="page" id="log">
+    This is the log page.
+  </div>
+
+  <div class="page" id="start-serving">
+    <form id="url-form">
+      <input placeholder="Sensorendipity URL..." value="http://localhost:8765" id="url">
+      <input type="submit" value="Change">
+    </form>
+
+    <div class="instructions">Start serving</div>
+    <div class="button debug" data-goto="#serve-result">Debug: Change page to serve</div>
+  </div>
+
+  <div class="page" id="serve-result">
     <div class="sensor-result">
       <div class="sensor-visual">
         aaaaaa
