@@ -73,12 +73,12 @@ li, .button {
 }
 
 .nav > li {
-  margin: 10px;
+  margin: 5px;
 }
 
 .nav > li:not(:first-child) {
   list-style: none;
-  padding: 0 20px;
+  padding: 0 10px;
 }
 
 .debug {
