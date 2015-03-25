@@ -5,13 +5,13 @@
     this.ui = ui;
     this.url = this.ui.getUrl();
     this.dataHistory = [];
+    this.serveHistory = [];
+    this.pinnedServes = [];
     this.historySize = 60;
-    // this.pullEvery = 16;
     this.pullEvery = 100;
+    this.activeServe = null;
 
     this.ui.app = this;
-
-    // this.start(this.url);
   }
 
   App.prototype = {
@@ -68,8 +68,17 @@
 
       var threshold = 15;
       if (force > threshold) {
+        this.serveHistory.push({ forwardAngle: oValues[0], sideAngle: oValues[1], force: force });
         this.ui.updateServeValues(oValues[0], oValues[1], force);
       }
+
+      this.ui.updateIndicator(force);
+    },
+
+    pinServe: function () {
+      var serve = this.serveHistory[this.serveHistory.length - 1];
+      this.ui.setPinnedServe(serve);
+      this.pinnedServes.push(serve);
     }
   };
 
@@ -78,12 +87,14 @@
     this.frontAngleEl = this.root.querySelector(".sensor-result.forward-angle");
     this.sideAngleEl = this.root.querySelector(".sensor-result.side-angle");
     this.forceEl = this.root.querySelector(".sensor-result.force");
+    this.serveToggleEl = this.root.querySelector(".serve-type-toggle");
     this.serveHistory = [];
 
     this.urlFormEl = this.root.querySelector("#url-form");
     this.createUrlListener();
 
     this.setupNav();
+    this.setupServeToggle();
   }
 
   UI.prototype = {
@@ -94,9 +105,9 @@
 
       if (this.serveHistory.length > 0) {
         var previousServe = this.serveHistory[this.serveHistory.length - 1];
-        this.frontAngleEl.querySelector(".sensor-comparison").innerHTML = previousServe.forwardAngle.toPrecision(3);
-        this.sideAngleEl.querySelector(".sensor-comparison").innerHTML = previousServe.sideAngle.toPrecision(3);
-        this.forceEl.querySelector(".sensor-comparison").innerHTML = previousServe.force.toPrecision(3);
+        this.frontAngleEl.querySelector(".previous-serve").innerHTML = previousServe.forwardAngle.toPrecision(3);
+        this.sideAngleEl.querySelector(".previous-serve").innerHTML = previousServe.sideAngle.toPrecision(3);
+        this.forceEl.querySelector(".previous-serve").innerHTML = previousServe.force.toPrecision(3);
       }
 
       this.serveHistory.push({
@@ -104,6 +115,15 @@
         sideAngle: sideAngle,
         force: force
       });
+
+      if (window.history.state.page === "#start-serving") {
+        this.navigate("#serve-result")
+      }
+    },
+
+    updateIndicator: function(value) {
+      var indicatorValue = this.root.querySelector(".sensor-indicator .sensor-indicator-value");
+      indicatorValue.innerHTML = value;
     },
 
     createUrlListener: function () {
@@ -115,12 +135,31 @@
       }.bind(this);
     },
 
+    setupServeToggle: function () {
+      Array.prototype.forEach.call(this.serveToggleEl.querySelectorAll(".button"), function (el) {
+        if (el.dataset.servetype !== null && typeof el.dataset.servetype !== "undefined") {
+          el.addEventListener("click", function () {
+            this.toggleServe(el.dataset.servetype);
+          }.bind(this));
+        }
+      }.bind(this));
+    },
+
+    toggleServe: function (serve) {
+      Array.prototype.forEach.call(this.serveToggleEl.querySelectorAll(".button"), function (el) {
+        el.classList.remove("active-serve");
+      });
+
+      this.serveToggleEl.querySelector("." + serve).classList.add("active-serve");
+      this.app.activeServe = serve;
+    },
+
     setupNav: function () {
-      this.backEl = this.root.querySelector(".nav .back");
+      this.homeEl = this.root.querySelector(".nav .home");
       this.navigate("#home");
 
-      this.backEl.addEventListener("click", function () {
-        window.history.back();
+      this.homeEl.addEventListener("click", function () {
+        this.navigate("#home");
       }.bind(this));
 
       window.onpopstate = function (e) {
@@ -142,7 +181,8 @@
       }.bind(this));
     },
 
-    startApp: function () {
+    startSession: function () {
+      this.toggleServe("flatserve");
       this.app.start();
     },
 
@@ -164,6 +204,30 @@
         el.style.display = "none";
       });
       this.root.querySelector(pageSelector).style.display = "";
+    },
+
+    pinServe: function () {
+      this.app.pinServe();
+    },
+
+    setPinnedServe: function (serve) {
+      console.log(serve)
+      this.frontAngleEl.querySelector(".pinned-serve").innerHTML = serve.forwardAngle.toPrecision(3);
+      this.sideAngleEl.querySelector(".pinned-serve").innerHTML = serve.sideAngle.toPrecision(3);
+      this.forceEl.querySelector(".pinned-serve").innerHTML = serve.force.toPrecision(3);
+    },
+
+    updateLogbook: function () {
+      var serves = this.app.pinnedServes;
+      var list = this.root.querySelector(".serve-list");
+
+      list.innerHTML = "";
+
+      for (var i = 0; i < serves.length; i++) {
+        var li = document.createElement("li");
+        list.appendChild(li);
+        li.innerHTML = JSON.stringify(serves[i]);
+      }
     }
   };
 

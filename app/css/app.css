@@ -1,13 +1,19 @@
 body {
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  /*overflow: hidden;*/
+  font-family: "Arimo", sans-serif;
 }
 
 .sensor-result {
   display: flex;
   width: 100%;
+}
+
+.sensor-result img {
+  height: 100%;
 }
 
 .page {
@@ -41,22 +47,66 @@ body {
 
 .sensor-result > div {
   display: flex;
+  flex-basis: 0;
   width: 50%;
+  justify-content: center;
+  align-content: center;
+}
+
+.sensor-visual {
+  flex-grow: 4;
+}
+
+.sensor-number {
+  flex-grow: 4;
   font-size: 6rem;
+}
+
+.sensor-comparison {
+  flex-grow: 2;
+  display: flex;
+  font-size: 2rem;
+  flex-direction: column;
+}
+
+.sensor-comparison > div {
+  color: white;
+  width: 5rem;
+  height: 5rem;
+  margin: 0.5rem;
+  display: flex;
+  align-content: center;
   justify-content: center;
 }
 
-.serve-type-toggle {
-  margin: 0;
-  color: #333;
-  border-radius: 4px;
-  border: 1px solid #bbb;
-  outline: 0;
-  padding: 4px;
+.sensor-indicator {
+  text-align: center;
 }
 
-.serve-type-toggle li {
-  margin: 2px;
+.previous-serve {
+  background-color: #959595;
+}
+
+.pinned-serve {
+  background-color: #46beb2;
+}
+
+.serve-type-toggle {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  color: #333;
+  border: 1px solid #bbb;
+  outline: 0;
+  padding: 0;
+}
+
+.serve-type-toggle .active-serve {
+  background-color: #ff8989;
+}
+
+.serve-type-toggle .active-serve:hover {
+  background-color: #ff9999;
 }
 
 .nav {
@@ -65,22 +115,40 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-}
-
-/* Clear skeleton style for nav*/
-li, .button {
-  margin: 0;
+  padding: 0;
 }
 
 .nav > li {
-  margin: 5px;
-}
-
-.nav > li:not(:first-child) {
   list-style: none;
-  padding: 0 10px;
 }
 
 .debug {
   border: 2px solid red;
+}
+
+.button {
+  background-color: #526e82;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  cursor: pointer;
+  margin: 0.5rem;
+  text-transform: uppercase;
+}
+
+.button:hover {
+  background-color: #627e92;
+}
+
+.button:active {
+  background-color: #ff9999;
+}
+
+.button .toggled {
+  background-color: #ff8989;
+}
+
+#url {
+  padding: 1rem;
+  width: 30%;
 }

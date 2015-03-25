@@ -4,61 +4,82 @@
   <meta charset="utf-8">
   <title>Tennis</title>
 
+  <link href='http://fonts.googleapis.com/css?family=Arimo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
+  <!-- <link rel="stylesheet" href="css/skeleton.css"> -->
   <link rel="stylesheet" href="css/app.css">
 </head>
 
 <body>
   <ul class="nav">
-    <li class="button back">Back</li>
+    <li class="button home">Home</li>
     <li>
       <ul class="serve-type-toggle">
-        <li class="button">Flat</li>
-        <li class="button">Spin</li>
-        <li class="button">Kick</li>
+        <li class="button flatserve" data-servetype="flatserve">Flat</li>
+        <li class="button spinserve" data-servetype="spinserve">Spin</li>
+        <li class="button kickserve" data-servetype="kickserve">Kick</li>
       </ul>
     </li>
-    <li class="button">Pin Last</li>
+    <li class="button" data-fn="pinServe">Pin</li>
   </ul>
 
   <div class="page" id="home">
-    <div class="button" data-goto="#start-serving" data-fn="startApp">Practice</div>
-    <div class="button" data-goto="#log">Log</div>
+    <div class="button" data-goto="#start-serving" data-fn="startSession">Start Session</div>
+    <div class="button" data-goto="#log" data-fn="updateLogbook">Logbook</div>
   </div>
 
   <div class="page" id="log">
     This is the log page.
+    <ul class="serve-list">
+    </ul>
   </div>
 
   <div class="page" id="start-serving">
+    <h1 class="instructions">KEEP SERVING!</h1>
+    <h2 class="instructions">ALL YOUR SERVES ARE AUTOMATICALLY SAVED</h2>
+
+    <div class="sensor-indicator">
+      Sensor: <span class="sensor-indicator-value">?</span>
+    </div>
+
     <form id="url-form">
       <input placeholder="Sensorendipity URL..." value="http://localhost:8765" id="url">
       <input type="submit" value="Change">
     </form>
 
-    <div class="instructions">Start serving</div>
     <div class="button debug" data-goto="#serve-result">Debug: Change page to serve</div>
   </div>
 
   <div class="page" id="serve-result">
     <div class="sensor-result forward-angle">
-      <div class="sensor-visual">fwd</div>
-      <div class="sensor-number">95.6</div>
-      <div class="sensor-comparison">bbbb</div>
+      <div class="sensor-visual">
+        <img src="images/tennisracket.png" />
+      </div>
+      <div class="sensor-number">??.?</div>
+      <div class="sensor-comparison">
+        <div class="previous-serve">prev</div>
+        <div class="pinned-serve">pin</div>
+      </div>
     </div>
 
     <div class="sensor-result side-angle">
-      <div class="sensor-visual">side</div>
-      <div class="sensor-number">95.6</div>
-      <div class="sensor-comparison">bbbb</div>
+      <div class="sensor-visual"><img src="images/tennisracket2.png" /></div>
+      <div class="sensor-number">??.?</div>
+      <div class="sensor-comparison">
+        <div class="previous-serve">prev</div>
+        <div class="pinned-serve">pin</div>
+      </div>
     </div>
 
     <div class="sensor-result force">
-      <div class="sensor-visual">force</div>
-      <div class="sensor-number">95.6</div>
-      <div class="sensor-comparison">bbbb</div>
+      <div class="sensor-visual"><img src="images/weightlifter.png" /></div>
+      <div class="sensor-number">??.?</div>
+      <div class="sensor-comparison">
+        <div class="previous-serve">prev</div>
+        <div class="pinned-serve">pin</div>
+      </div>
     </div>
   </div>
 
