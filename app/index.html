@@ -12,76 +12,79 @@
 
 <body>
   <ul class="nav">
-    <li class="button home">Home</li>
+    <li class="button home hide" data-el="homeButton">Home</li>
     <li>
-      <ul class="serve-type-toggle">
+      <ul class="serve-type-toggle hide" data-el="serveToggle">
         <li class="button flatserve" data-servetype="flatserve">Flat</li>
         <li class="button spinserve" data-servetype="spinserve">Spin</li>
         <li class="button kickserve" data-servetype="kickserve">Kick</li>
       </ul>
     </li>
-    <li class="button" data-fn="pinServe">Pin</li>
+    <li class="button pinserve hide disable" data-el="pinButton" data-fn="pinServe">Pin</li>
   </ul>
 
   <div class="page" id="home">
+    <h1>Tennisity</h1>
     <div class="button" data-goto="#start-serving" data-fn="startSession">Start Session</div>
     <div class="button" data-goto="#log" data-fn="updateLogbook">Logbook</div>
   </div>
 
   <div class="page" id="log">
     This is the log page.
-    <ul class="serve-list">
+    <ul class="serve-list" data-el="serveList">
     </ul>
   </div>
 
   <div class="page" id="start-serving">
-    <h1 class="instructions">KEEP SERVING!</h1>
-    <h2 class="instructions">ALL YOUR SERVES ARE AUTOMATICALLY SAVED</h2>
+    <!-- <img src="images/url.png" data-el="instruction-image"> -->
+    <h1 class="instructions">Connect phone</h1>
+    <h2 class="instructions">Enter full Sensorendipity &lsquo;Server IP&rsquo;</h2>
 
-    <div class="sensor-indicator">
-      Sensor: <span class="sensor-indicator-value">?</span>
-    </div>
-
-    <form id="url-form">
+    <form id="url-form" data-el="urlForm">
       <input placeholder="Sensorendipity URL..." value="http://localhost:8765" id="url">
-      <input type="submit" value="Change">
+      <input class="button" type="submit" value="CHANGE">
     </form>
+
+    <div class="sensor-indicator disconnected">
+      Sensorendipity <span class="sensor-indicator-value">not connected.</span>
+    </div>
 
     <div class="button debug" data-goto="#serve-result">Debug: Change page to serve</div>
   </div>
 
   <div class="page" id="serve-result">
-    <div class="sensor-result forward-angle">
+    <div class="sensor-result forward-angle" data-el="frontAngle">
       <div class="sensor-visual">
         <img src="images/tennisracket.png" />
       </div>
-      <div class="sensor-number">??.?</div>
+      <div class="sensor-number" data-el="frontAngleVal">?</div>
       <div class="sensor-comparison">
-        <div class="previous-serve">prev</div>
-        <div class="pinned-serve">pin</div>
+        <div class="previous-serve disable" data-el="prevFrontAngle">prev</div>
+        <div class="pinned-serve disable" data-el="pinnedFrontAngle">pin</div>
       </div>
     </div>
 
-    <div class="sensor-result side-angle">
+    <div class="sensor-result side-angle" data-el="sideAngle">
       <div class="sensor-visual"><img src="images/tennisracket2.png" /></div>
-      <div class="sensor-number">??.?</div>
+      <div class="sensor-number" data-el="sideAngleVal">?</div>
       <div class="sensor-comparison">
-        <div class="previous-serve">prev</div>
-        <div class="pinned-serve">pin</div>
+        <div class="previous-serve disable" data-el="prevSideAngle">prev</div>
+        <div class="pinned-serve disable" data-el="pinnedSideAngle">pin</div>
       </div>
     </div>
 
-    <div class="sensor-result force">
+    <div class="sensor-result force" data-el="force">
       <div class="sensor-visual"><img src="images/weightlifter.png" /></div>
-      <div class="sensor-number">??.?</div>
+      <div class="sensor-number" data-el="forceVal">?</div>
       <div class="sensor-comparison">
-        <div class="previous-serve">prev</div>
-        <div class="pinned-serve">pin</div>
+        <div class="previous-serve disable" data-el="prevForce">prev</div>
+        <div class="pinned-serve disable" data-el="pinnedForce">pin</div>
       </div>
     </div>
   </div>
 
   <script src="scripts/lodash.js"></script>
-  <script src="scripts/app.js"></script>
+  <script src="scripts/require.js"></script>
+  <script src="scripts/main.js"></script>
 </body>
 </html>
