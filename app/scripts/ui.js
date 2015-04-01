@@ -104,7 +104,7 @@ UI.prototype = {
     });
 
     this.els.serveToggle.querySelector("." + serve).classList.add("active-serve");
-    this.app.activeServe = serve;
+    this.app.serveType = serve;
   },
 
   setupNav: function () {

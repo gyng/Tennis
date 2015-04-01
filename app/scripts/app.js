@@ -1,15 +1,16 @@
 function App (ui) {
   this.ui = ui;
+  this.ui.app = this;
   this.url = this.ui.getUrl();
   this.dataHistory = [];
   this.serveHistory = [];
   this.pinnedServes = [];
-  this.historySize = 60;
+  this.maxServe = null;
+  this.serveType = null;
+  this.historySize = 200;
   this.pullEvery = 100;
-  this.activeServe = null;
   this.connected = false;
-
-  this.ui.app = this;
+  this.forceThreshold = 20;
 }
 
 App.prototype = {
@@ -65,10 +66,32 @@ App.prototype = {
       laValues[2] * laValues[2]
     );
 
-    var threshold = 15;
-    if (force > threshold) {
-      this.serveHistory.push({ forwardAngle: oValues[0], sideAngle: oValues[1], force: force });
-      this.ui.updateServeValues(oValues[0], oValues[1], force);
+    var serve = {
+      forwardAngle: oValues[0],
+      sideAngle: oValues[1],
+      force: force,
+      type: this.serveType
+    };
+
+    if (force > this.forceThreshold) {
+      this.serveWindowActive = true;
+
+      if (!this.maxServe || serve.force > this.maxServe.force) {
+        this.maxServe = serve;
+      }
+    } else if (this.serveWindowActive === true) {
+      this.serveWindowActive = false;
+    }
+
+    if (this.serveWindowActive === false) {
+      this.serveHistory.push(this.maxServe);
+      this.ui.updateServeValues(
+        this.maxServe.forwardAngle,
+        this.maxServe.sideAngle,
+        this.maxServe.force
+      );
+      this.maxServe = null;
+      this.serveWindowActive = null;
     }
 
     this.ui.updateIndicator(this.connected);
