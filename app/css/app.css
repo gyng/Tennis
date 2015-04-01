@@ -102,6 +102,20 @@ body, input {
   min-width: 60%;
 }
 
+#log {
+  display: flex;
+  overflow: scroll;
+}
+
+.serve-table {
+  flex-grow: 1;
+  font-size: 0.7rem;
+}
+
+.serve-table td {
+  padding: 0.2rem;
+}
+
 .sensor-result > div {
   display: flex;
   flex-basis: 0;

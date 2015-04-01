@@ -69,7 +69,8 @@ App.prototype = {
       forwardAngle: -(oValues[1] + 90),
       sideAngle: oValues[0],
       force: force,
-      type: this.serveType
+      type: this.serveType,
+      date: Date.now()
     };
 
     if (force > this.forceThreshold) {

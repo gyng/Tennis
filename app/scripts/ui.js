@@ -206,12 +206,23 @@ UI.prototype = {
     var serves = this.app.pinnedServes;
     var list = this.els.serveList;
 
-    list.innerHTML = "";
+    var metadata = [];
+    metadata.push({ name: "date", label: "Date", datatype: "string" });
+    metadata.push({ name: "type", label: "Type", datatype: "string" });
+    metadata.push({ name: "forwardAngle", label: "Forward Angle", datatype: "double(°,1)" });
+    metadata.push({ name: "sideAngle", label: "Side Angle", datatype: "double(°,1)" });
+    metadata.push({ name: "force", label: "Force", datatype: "double(°,1)" });
 
-    for (var i = 0; i < serves.length; i++) {
-      var li = document.createElement("li");
-      list.appendChild(li);
-      li.innerHTML = JSON.stringify(serves[i]);
-    }
+    var count = 0;
+    var data = _.map(this.app.serveHistory, function (el) {
+      return {
+        id: count++,
+        values: el
+      };
+    });
+
+    var editableGrid = new EditableGrid("serve");
+    editableGrid.load({ "metadata": metadata, "data": data });
+    editableGrid.renderGrid("serve-table", "serve-table");
   }
 };
