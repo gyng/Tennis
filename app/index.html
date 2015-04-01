@@ -12,20 +12,46 @@
 <body>
   <ul class="nav">
     <li class="button home hide" data-el="homeButton">Home</li>
+
     <li>
       <ul class="serve-type-toggle hide" data-el="serveToggle">
-        <li class="button flatserve" data-servetype="flatserve">Flat</li>
-        <li class="button spinserve" data-servetype="spinserve">Spin</li>
-        <li class="button kickserve" data-servetype="kickserve">Kick</li>
+        <li class="button flatserve cbutton cbutton--effect-radomir" data-servetype="flatserve">Flat</li>
+        <li class="button spinserve cbutton cbutton--effect-radomir" data-servetype="spinserve">Spin</li>
+        <li class="button kickserve cbutton cbutton--effect-radomir" data-servetype="kickserve">Kick</li>
       </ul>
     </li>
+
     <li class="button pinserve hide disable" data-el="pinButton" data-fn="pinServe">Pin</li>
   </ul>
 
   <div class="page" id="home">
-    <h1>Tennisity</h1>
-    <div class="button" data-goto="#start-serving" data-fn="startSession">Start Session</div>
-    <div class="button" data-goto="#log" data-fn="updateLogbook">Logbook</div>
+    <div class="icon"></div>
+    <h1 class="wordmark">Tennisity</h1>
+    <div>
+      <div class="button" data-goto="#start-serving" data-fn="startSession">Start Session</div>
+      <div class="button" data-goto="#log" data-fn="updateLogbook">Logbook</div>
+    </div>
+  </div>
+
+  <div class="page" id="start-serving">
+    <div class="instructions">
+      <div class="instruction-image" style="background-image: url(images/sensorendipityurl.png);" data-el="instImage"></div>
+      <h1 class="instruction" data-el="instHeader">Connect device</h1>
+      <h2 class="instruction" data-el="instSubheader">Enter full Sensorendipity &lsquo;Server IP&rsquo;</h2>
+    </div>
+
+    <div>
+      <form id="url-form" data-el="urlForm">
+        <input type="text" placeholder="Sensorendipity URL..." value="http://localhost:8765" id="url">
+        <input class="button" type="submit" value="CHANGE">
+      </form>
+
+      <div class="sensor-indicator disconnected" data-el="connIndicator">
+        Sensorendipity not connected.
+      </div>
+      <div class="button debug" data-goto="#serve-result">Debug: Goto serve</div>
+    </div>
+
   </div>
 
   <div class="page" id="log">
@@ -34,27 +60,9 @@
     </ul>
   </div>
 
-  <div class="page" id="start-serving">
-    <!-- <img src="images/url.png" data-el="instruction-image"> -->
-    <h1 class="instructions">Connect phone</h1>
-    <h2 class="instructions">Enter full Sensorendipity &lsquo;Server IP&rsquo;</h2>
-
-    <form id="url-form" data-el="urlForm">
-      <input placeholder="Sensorendipity URL..." value="http://localhost:8765" id="url">
-      <input class="button" type="submit" value="CHANGE">
-    </form>
-
-    <div class="sensor-indicator disconnected">
-      Sensorendipity <span class="sensor-indicator-value">not connected.</span>
-    </div>
-
-    <div class="button debug" data-goto="#serve-result">Debug: Change page to serve</div>
-  </div>
-
   <div class="page" id="serve-result">
     <div class="sensor-result forward-angle" data-el="frontAngle">
       <div class="sensor-visual">
-        <img src="images/tennisracket.png" />
       </div>
       <div class="sensor-number" data-el="frontAngleVal">?</div>
       <div class="sensor-comparison">
@@ -64,7 +72,7 @@
     </div>
 
     <div class="sensor-result side-angle" data-el="sideAngle">
-      <div class="sensor-visual"><img src="images/tennisracket2.png" /></div>
+      <div class="sensor-visual"></div>
       <div class="sensor-number" data-el="sideAngleVal">?</div>
       <div class="sensor-comparison">
         <div class="previous-serve disable" data-el="prevSideAngle">prev</div>
@@ -72,8 +80,8 @@
       </div>
     </div>
 
-    <div class="sensor-result force" data-el="force">
-      <div class="sensor-visual"><img src="images/weightlifter.png" /></div>
+     <div class="sensor-result force" data-el="force">
+      <div class="sensor-visual"></div>
       <div class="sensor-number" data-el="forceVal">?</div>
       <div class="sensor-comparison">
         <div class="previous-serve disable" data-el="prevForce">prev</div>

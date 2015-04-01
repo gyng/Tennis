@@ -3,12 +3,18 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  font-family: "nexa_boldregular", sans-serif;
+  margin: 0;
+  padding: 0;
+  align-items: stretch;
 }
 
 img {
+  flex: 0 1 auto;
   height: 100%;
-  max-width: 100%;
+}
+
+body, input {
+  font-family: "nexa_boldregular", sans-serif;
 }
 
 .hide {
@@ -35,22 +41,55 @@ img {
 }
 
 .page {
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  flex-grow: 1;
+}
+
+#home > div, #start-serving > div {
+  flex-grow: 1;
+}
+
+.icon {
+  width: 100%;
+  background-image: url('../images/tennisball.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.wordmark {
+  color: #1A1A1A;
 }
 
 #start-serving form {
   display: flex;
-  justify-content: center;
+  justify-content: stretch;
   align-content: center;
 }
 
 #start-serving .instructions {
   display: flex;
   justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  color: #1A1A1A;
+  align-items: stretch;
+  flex-grow: 3;
+}
+
+#start-serving .instruction-image {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  flex-grow: 10;
+}
+
+#start-serving > div {
+  min-width: 60%;
 }
 
 .sensor-result > div {
@@ -64,12 +103,28 @@ img {
 }
 
 .sensor-visual {
-  flex-grow: 4;
+  flex-grow: 3;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.forward-angle .sensor-visual {
+  background-image: url(../images/tennisracket.png);
+}
+
+.side-angle .sensor-visual {
+  background-image: url(../images/tennisracket2.png);
+}
+
+.force .sensor-visual {
+  background-image: url(../images/weightlifter.png);
 }
 
 .sensor-number {
   flex-grow: 4;
   font-size: 6rem;
+  color: #1A1A1A;
 }
 
 .sensor-comparison {
@@ -81,14 +136,13 @@ img {
 
 .sensor-comparison > div {
   color: white;
-  width: 5rem;
-  height: 5rem;
   margin: 0.5rem;
   display: flex;
   align-content: center;
   justify-content: center;
   flex-direction: column;
   text-align: center;
+  flex-grow: 1;
 }
 
 .sensor-indicator {
@@ -111,6 +165,7 @@ img {
   border: 1px solid #bbb;
   outline: 0;
   padding: 0;
+  margin: 0.5rem;
 }
 
 .serve-type-toggle .active-serve {
@@ -128,6 +183,7 @@ img {
   align-items: center;
   justify-content: space-between;
   padding: 0;
+  margin: 0;
 }
 
 .nav > li {
@@ -137,6 +193,14 @@ img {
 .debug {
   opacity: 0.1;
   border: 2px solid red;
+}
+
+.showbox {
+  border: 2px solid red;
+}
+
+.showbox div  {
+  border: 1px solid red;
 }
 
 .debug:hover {
@@ -151,6 +215,12 @@ img {
   cursor: pointer;
   margin: 0.5rem;
   text-transform: uppercase;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .button:hover {
@@ -167,7 +237,8 @@ img {
 
 #url {
   padding: 1rem;
-  width: 60%;
+  width: 120%;
   text-align: center;
   font-size: 150%;
 }
+

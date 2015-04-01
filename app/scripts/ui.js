@@ -47,21 +47,17 @@ UI.prototype = {
   },
 
   updateIndicator: function(isConnected) {
-    var indicatorValue = this.root.querySelector(".sensor-indicator .sensor-indicator-value");
-    var instructionsHeader = this.root.querySelector("#start-serving h1.instructions");
-    var instructionsDesc = this.root.querySelector("#start-serving h2.instructions");
-    var sensorIndicator = this.root.querySelector(".sensor-indicator");
-
     if (isConnected) {
-      sensorIndicator.classList.remove("disconnected");
-      sensorIndicator.classList.add("connected");
-      indicatorValue.innerHTML = "connected";
-      instructionsHeader.innerHTML = "Start serving!";
-      instructionsDesc.innerHTML = "Your serves are automatically recorded";
+      this.els.connIndicator.classList.remove("disconnected");
+      this.els.connIndicator.classList.add("connected");
+      this.els.connIndicator.innerHTML = "Sensorendipity connected";
+      this.els.instHeader.innerHTML = "Start serving!";
+      this.els.instSubheader.innerHTML = "Your serves are automatically recorded";
+      this.els.instImage.style = "background-image: url(images/tennisracket.png);";
     } else {
-      sensorIndicator.classList.remove("connected");
-      sensorIndicator.classList.add("disconnected");
-      indicatorValue.innerHTML = "not connected";
+      this.els.connIndicator.classList.remove("connected");
+      this.els.connIndicator.classList.add("disconnected");
+      this.els.connIndicator.innerHTML = "Sensorendipity not connected";
     }
   },
 
@@ -193,13 +189,13 @@ UI.prototype = {
   },
 
   setPinnedServe: function (serve) {
-    this.els.frontAngle.innerHTML = serve.forwardAngle.toPrecision(3);
-    this.els.sideAngle.innerHTML = serve.sideAngle.toPrecision(3);
-    this.els.force.innerHTML = serve.force.toPrecision(3);
+    this.els.pinnedFrontAngle.innerHTML = serve.forwardAngle.toPrecision(3);
+    this.els.pinnedSideAngle.innerHTML = serve.sideAngle.toPrecision(3);
+    this.els.forceVal.pinnedForce = serve.force.toPrecision(3);
 
-    this.enable(this.els.frontAngle);
-    this.enable(this.els.sideAngle);
-    this.enable(this.els.force);
+    this.enable(this.els.pinnedFrontAngle);
+    this.enable(this.els.pinnedSideAngle);
+    this.enable(this.els.pinnedForce);
   },
 
   updateLogbook: function () {
