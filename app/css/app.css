@@ -6,6 +6,7 @@ body {
   margin: 0;
   padding: 0;
   align-items: stretch;
+  overflow: hidden;
 }
 
 img {
@@ -27,11 +28,11 @@ body, input {
 }
 
 .disconnected {
-  color: red;
+  color: #ff8989;
 }
 
 .connected {
-  color: green;
+  color: #41BBB4;
 }
 
 .sensor-result {
@@ -58,10 +59,18 @@ body, input {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  z-index: -10;
 }
 
 .wordmark {
   color: #1A1A1A;
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 #start-serving form {
@@ -78,6 +87,7 @@ body, input {
   color: #1A1A1A;
   align-items: stretch;
   flex-grow: 3;
+  margin-top: 1.5rem;
 }
 
 #start-serving .instruction-image {
@@ -110,15 +120,15 @@ body, input {
 }
 
 .forward-angle .sensor-visual {
-  background-image: url(../images/tennisracket.png);
+  background-image: url(../images/tennisracket3.png);
 }
 
 .side-angle .sensor-visual {
-  background-image: url(../images/tennisracket2.png);
+  background-image: url(../images/tennisracket3.png);
 }
 
 .force .sensor-visual {
-  background-image: url(../images/weightlifter.png);
+  background-image: url(../images/weightliftericon.png);
 }
 
 .sensor-number {
@@ -242,3 +252,22 @@ body, input {
   font-size: 150%;
 }
 
+.spin {
+    opacity: 1.0;
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 172000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    animation-name: spin;
+    animation-duration: 172000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotateZ(0deg); }
+    to { -webkit-transform: rotateZ(360deg); }
+}

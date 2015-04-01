@@ -17,10 +17,18 @@ UI.prototype = {
     }.bind(this));
   },
 
-  updateServeValues: function (forwardAngle, sideAngle, force) {
+  updateServeValues: function (serve, forceThreshold) {
+    var forwardAngle = serve.forwardAngle;
+    var sideAngle = serve.sideAngle;
+    var force = serve.force;
+
     this.els.frontAngleVal.innerHTML = forwardAngle.toPrecision(3);
     this.els.sideAngleVal.innerHTML  = sideAngle.toPrecision(3);
     this.els.forceVal.innerHTML      = force.toPrecision(3);
+
+    this.els.frontAngleVis.style.transform = "rotate(" + forwardAngle + "deg)";
+    this.els.sideAngleVis.style.transform  = "rotate(" + sideAngle + "deg)";
+    this.els.forceVis.style.transform      = "scale(" + force / (forceThreshold * 1.5) + ")";
 
     if (this.serveHistory.length > 0) {
       var prevServe = this.serveHistory[this.serveHistory.length - 1];
@@ -33,11 +41,7 @@ UI.prototype = {
       this.enable(this.els.prevForce);
     }
 
-    this.serveHistory.push({
-      forwardAngle: forwardAngle,
-      sideAngle: sideAngle,
-      force: force
-    });
+    this.serveHistory.push(serve);
 
     if (window.history.state.page === "#start-serving") {
       this.navigate("#serve-result");

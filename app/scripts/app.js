@@ -8,9 +8,9 @@ function App (ui) {
   this.maxServe = null;
   this.serveType = null;
   this.historySize = 200;
-  this.pullEvery = 100;
+  this.pullEvery = 50;
   this.connected = false;
-  this.forceThreshold = 20;
+  this.forceThreshold = 15;
 }
 
 App.prototype = {
@@ -34,14 +34,13 @@ App.prototype = {
   },
 
   start: function () {
-    console.log("started");
     this.pullIntervalId = window.setInterval(function () {
       this.pull(this.url);
     }.bind(this), this.pullEvery);
   },
 
   stop: function () {
-    if (this.pullIntervalId !== null && typeof this.pullIntervalId !== "undefined") {
+    if (this.pullIntervalId) {
       window.clearInterval(this.pullIntervalId);
       this.pullIntervalId = null;
     }
@@ -67,8 +66,8 @@ App.prototype = {
     );
 
     var serve = {
-      forwardAngle: oValues[0],
-      sideAngle: oValues[1],
+      forwardAngle: -(oValues[1] + 90),
+      sideAngle: oValues[0],
       force: force,
       type: this.serveType
     };
@@ -85,14 +84,13 @@ App.prototype = {
 
     if (this.serveWindowActive === false) {
       this.serveHistory.push(this.maxServe);
-      this.ui.updateServeValues(
-        this.maxServe.forwardAngle,
-        this.maxServe.sideAngle,
-        this.maxServe.force
-      );
+      this.ui.updateServeValues(this.maxServe, this.forceThreshold);
       this.maxServe = null;
       this.serveWindowActive = null;
     }
+
+    // Debug, sensor value monitoring
+    // this.ui.updateServeValues(serve, this.forceThreshold);
 
     this.ui.updateIndicator(this.connected);
   },

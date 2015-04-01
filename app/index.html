@@ -25,7 +25,7 @@
   </ul>
 
   <div class="page" id="home">
-    <div class="icon"></div>
+    <div class="icon spin"></div>
     <h1 class="wordmark">Tennisity</h1>
     <div>
       <div class="button" data-goto="#start-serving" data-fn="startSession">Start Session</div>
@@ -62,7 +62,7 @@
 
   <div class="page" id="serve-result">
     <div class="sensor-result forward-angle" data-el="frontAngle">
-      <div class="sensor-visual">
+      <div class="sensor-visual" data-el="frontAngleVis">
       </div>
       <div class="sensor-number" data-el="frontAngleVal">?</div>
       <div class="sensor-comparison">
@@ -72,7 +72,7 @@
     </div>
 
     <div class="sensor-result side-angle" data-el="sideAngle">
-      <div class="sensor-visual"></div>
+      <div class="sensor-visual" data-el="sideAngleVis"></div>
       <div class="sensor-number" data-el="sideAngleVal">?</div>
       <div class="sensor-comparison">
         <div class="previous-serve disable" data-el="prevSideAngle">prev</div>
@@ -81,7 +81,7 @@
     </div>
 
      <div class="sensor-result force" data-el="force">
-      <div class="sensor-visual"></div>
+      <div class="sensor-visual" data-el="forceVis"></div>
       <div class="sensor-number" data-el="forceVal">?</div>
       <div class="sensor-comparison">
         <div class="previous-serve disable" data-el="prevForce">prev</div>
