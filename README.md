@@ -6,7 +6,7 @@ Tennisity is an application intended to help amateur tennis players master their
 
 After attaching an Android device (for sensors) to a tennis racquet, a player&rsquo;s serves can be detected. Data on those serves are relayed back to the player for review right after each serve.
 
-I didn&rsquo;t put too much effort and time into this, so serve detection is *not that good*.
+Serve detection is *not good* at the moment.
 
 ## Requirements
 

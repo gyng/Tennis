@@ -114,10 +114,25 @@ body, input {
 .serve-table {
   flex-grow: 1;
   font-size: 0.7rem;
+  width: 100%;
+  max-width: 1000px;
 }
 
-.serve-table td {
+.serve-table td, th {
   padding: 0.2rem;
+  text-align: right;
+}
+
+.serve-table table {
+  width: 100%;
+}
+
+.serve-table tr:nth-child(even) {
+  background-color: #959595;
+}
+
+.serve-table tr:nth-child(odd) {
+  background-color: #D7DADB;
 }
 
 .sensor-result > div {
@@ -128,6 +143,7 @@ body, input {
   text-align: center;
   justify-content: center;
   align-content: center;
+  margin-bottom: 2rem;
 }
 
 .sensor-visual {
@@ -149,10 +165,15 @@ body, input {
   background-image: url(../images/weightliftericon.png);
 }
 
-.sensor-number {
+.sensor-value {
   flex-grow: 4;
   font-size: 6rem;
   color: #1A1A1A;
+}
+
+.sensor-value-label {
+  font-size: 1rem;
+  text-transform: uppercase;
 }
 
 .sensor-comparison {
@@ -273,11 +294,11 @@ body, input {
 .spin {
     opacity: 1.0;
     -webkit-animation-name: spin;
-    -webkit-animation-duration: 172000ms;
+    -webkit-animation-duration: 96000ms;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;
     animation-name: spin;
-    animation-duration: 172000ms;
+    animation-duration: 96000ms;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
