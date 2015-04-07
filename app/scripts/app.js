@@ -1,7 +1,7 @@
 function App (ui) {
   this.ui = ui;
   this.ui.app = this;
-  this.url = this.ui.getUrl();
+  this.url = this.ui.getSensorendipityUrl();
   this.dataHistory = [];
   this.serveHistory = [];
   this.pinnedServes = [];
