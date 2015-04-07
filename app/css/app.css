@@ -1,5 +1,5 @@
-/* I'm very sorry for this giant mess */
-/* Please understand that this was a quick hack :( */
+/* I am very sorry for this. */
+/* Please understand that this was a quick hack. */
 
 @media (max-width: 550px) {
   html { font-size: 62.5%; }
@@ -23,6 +23,10 @@ img {
 
 body, input {
   font-family: "nexa_boldregular", sans-serif;
+}
+
+ul {
+  list-style: none;
 }
 
 .hide {
@@ -265,21 +269,12 @@ body, input {
   list-style: none;
 }
 
-.debug {
-  opacity: 0.1;
-  border: 2px solid red;
-}
-
 .showbox {
   border: 2px solid red;
 }
 
 .showbox div  {
   border: 1px solid red;
-}
-
-.debug:hover {
-  opacity: 1;
 }
 
 .button {
@@ -320,11 +315,11 @@ body, input {
 .spin {
     opacity: 1.0;
     -webkit-animation-name: spin;
-    -webkit-animation-duration: 96000ms;
+    -webkit-animation-duration: 64000ms;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;
     animation-name: spin;
-    animation-duration: 96000ms;
+    animation-duration: 64000ms;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }

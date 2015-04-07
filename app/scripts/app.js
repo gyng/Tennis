@@ -65,12 +65,15 @@ App.prototype = {
       laValues[2] * laValues[2]
     );
 
+    var date = Date.now();
+
     var serve = {
       forwardAngle: -(oValues[1] + 90),
       sideAngle: oValues[0],
       force: force,
       type: this.serveType,
-      date: Date.now()
+      date: date,
+      dateString: new Date(date).toLocaleDateString()
     };
 
     if (force > this.forceThreshold) {
@@ -98,7 +101,7 @@ App.prototype = {
 
   pinServe: function () {
     var serve = this.serveHistory[this.serveHistory.length - 1];
-    this.ui.setPinnedServe(serve);
+    this.ui.updatePinnedServe(serve);
     this.pinnedServes.push(serve);
   }
 };
