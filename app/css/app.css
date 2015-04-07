@@ -1,3 +1,6 @@
+/* I'm very sorry for this giant mess */
+/* Please understand that this was a quick hack :( */
+
 @media (max-width: 550px) {
   html { font-size: 62.5%; }
 }
@@ -51,6 +54,7 @@ body, input {
   align-items: center;
   justify-content: center;
   flex-grow: 1;
+  padding: 1rem;
 }
 
 #home > div, #start-serving > div {
@@ -108,7 +112,15 @@ body, input {
 
 #log {
   display: flex;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  justify-content: flex-start;
+}
+
+#log h2 {
+  max-width: 1000px;
+  width: 100%;
+  text-transform: uppercase;
 }
 
 .serve-table {
@@ -133,6 +145,20 @@ body, input {
 
 .serve-table tr:nth-child(odd) {
   background-color: #D7DADB;
+}
+
+.averages {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  max-width: 1000px;
+  margin-bottom: 2rem;
+}
+
+.average {
+  flex-grow: 1;
+  text-align: center;
 }
 
 .sensor-result > div {
@@ -165,13 +191,13 @@ body, input {
   background-image: url(../images/weightliftericon.png);
 }
 
-.sensor-value {
+.sensor-value, .value {
   flex-grow: 4;
   font-size: 6rem;
   color: #1A1A1A;
 }
 
-.sensor-value-label {
+.sensor-value-label, .label {
   font-size: 1rem;
   text-transform: uppercase;
 }

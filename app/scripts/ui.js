@@ -177,9 +177,9 @@ UI.prototype = {
   },
 
   updatePinnedServe: function (serve) {
-    this.els.pinnedFrontAngle.innerHTML = serve.forwardAngle.toPrecision(3);
-    this.els.pinnedSideAngle.innerHTML = serve.sideAngle.toPrecision(3);
-    this.els.pinnedForce.innerHTML = serve.sideAngle.toPrecision(3);
+    this.els.pinnedFrontAngle.innerHTML = serve.forwardAngle.toPrecision(2);
+    this.els.pinnedSideAngle.innerHTML = serve.sideAngle.toPrecision(2);
+    this.els.pinnedForce.innerHTML = serve.sideAngle.toPrecision(2);
 
     this.enable(this.els.pinnedFrontAngle);
     this.enable(this.els.pinnedSideAngle);
@@ -187,8 +187,7 @@ UI.prototype = {
   },
 
   updateLogbook: function () {
-    var serves = this.app.pinnedServes;
-    var list = this.els.serveList;
+    var serves = this.app.serveHistory;
 
     var metadata = [];
     metadata.push({ name: "dateString", label: "Date", datatype: "string" });
@@ -198,7 +197,7 @@ UI.prototype = {
     metadata.push({ name: "force", label: "Force", datatype: "double(f,1)" });
 
     var count = 0;
-    var data = _.map(this.app.serveHistory, function (el) {
+    var data = _.map(serves, function (el) {
       return {
         id: count++,
         values: el
@@ -208,6 +207,16 @@ UI.prototype = {
     var editableGrid = new EditableGrid("serve");
     editableGrid.load({ "metadata": metadata, "data": data });
     editableGrid.renderGrid("serve-table", "serve-table");
+
+    if (serves.length > 0) {
+      var forwardAvg = _.sum(serves, "forwardAngle") / serves.length;
+      var sideAvg    = _.sum(serves, "sideAngle") / serves.length;
+      var forceAvg   = _.sum(serves, "force") / serves.length;
+
+      this.els.forwardAvg.innerHTML = forwardAvg.toFixed(0) + "°";
+      this.els.sideAvg.innerHTML    = sideAvg.toFixed(0)    + "°";
+      this.els.forceAvg.innerHTML   = forceAvg.toFixed(0);
+    }
   },
 
   hide: function (el) {
