@@ -105,7 +105,7 @@ UI.prototype = {
       var prevServe = this.serveHistory[this.serveHistory.length - 1];
       this.els.prevFrontAngle.innerHTML = prevServe.forwardAngle.toPrecision(3) + "°";
       this.els.prevSideAngle.innerHTML  = prevServe.sideAngle.toPrecision(3) + "°";
-      this.els.prevForce.innerHTML      = prevServe.force.toPrecision(3) + "°";
+      this.els.prevForce.innerHTML      = prevServe.force.toPrecision(3);
 
       this.enable(this.els.prevFrontAngle);
       this.enable(this.els.prevSideAngle);
@@ -179,7 +179,7 @@ UI.prototype = {
   updatePinnedServe: function (serve) {
     this.els.pinnedFrontAngle.innerHTML = serve.forwardAngle.toPrecision(3) + "°";
     this.els.pinnedSideAngle.innerHTML = serve.sideAngle.toPrecision(3) + "°";
-    this.els.pinnedForce.innerHTML = serve.sideAngle.toPrecision(3);
+    this.els.pinnedForce.innerHTML = serve.force.toPrecision(3);
 
     this.enable(this.els.pinnedFrontAngle);
     this.enable(this.els.pinnedSideAngle);
