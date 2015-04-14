@@ -151,6 +151,14 @@ ul {
   background-color: #D7DADB;
 }
 
+.pinned-serve-table tr:nth-child(even) {
+  background-color: #46beb2
+}
+
+.pinned-serve-table tr:nth-child(odd) {
+  background-color: #A2DED8;
+}
+
 .averages {
   width: 100%;
   display: flex;

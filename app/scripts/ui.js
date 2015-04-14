@@ -7,6 +7,9 @@ function UI (root) {
   this.setupUrlListener();
   this.setupNav();
   this.setupServeToggle();
+
+  this.sounds = {};
+  this.sounds.beep = new Audio('audio/beep.mp3');
 }
 
 UI.prototype = {
@@ -89,6 +92,8 @@ UI.prototype = {
   },
 
   updateServeValues: function (serve, forceThreshold) {
+    this.sounds.beep.play();
+
     var forwardAngle = serve.forwardAngle;
     var sideAngle = serve.sideAngle;
     var force = serve.force;
@@ -187,8 +192,6 @@ UI.prototype = {
   },
 
   updateLogbook: function () {
-    var serves = this.app.serveHistory;
-
     var metadata = [];
     metadata.push({ name: "dateString", label: "Date", datatype: "string" });
     metadata.push({ name: "type", label: "Type", datatype: "string" });
@@ -197,21 +200,28 @@ UI.prototype = {
     metadata.push({ name: "force", label: "Force", datatype: "double(f,1)" });
 
     var count = 0;
-    var data = _.map(serves, function (el) {
+    var mapToEditableGrid = function (el) {
       return {
         id: count++,
         values: el
       };
-    });
+    };
+
+    var allServes = _.map(this.app.serveHistory, mapToEditableGrid);
+    var pinnedServes = _.map(this.app.pinnedServes, mapToEditableGrid);
 
     var editableGrid = new EditableGrid("serve");
-    editableGrid.load({ "metadata": metadata, "data": data });
+    editableGrid.load({ "metadata": metadata, "data": allServes });
     editableGrid.renderGrid("serve-table", "serve-table");
 
-    if (serves.length > 0) {
-      var forwardAvg = _.sum(serves, "forwardAngle") / serves.length;
-      var sideAvg    = _.sum(serves, "sideAngle") / serves.length;
-      var forceAvg   = _.sum(serves, "force") / serves.length;
+    var pinnedEditableGrid = new EditableGrid("serve");
+    pinnedEditableGrid.load({ "metadata": metadata, "data": pinnedServes });
+    pinnedEditableGrid.renderGrid("pinned-serve-table", "pinned-serve-table");
+
+    if (this.app.serveHistory.length > 0) {
+      var forwardAvg = _.sum(this.app.serveHistory, "forwardAngle") / this.app.serveHistory.length;
+      var sideAvg    = _.sum(this.app.serveHistory, "sideAngle") / this.app.serveHistory.length;
+      var forceAvg   = _.sum(this.app.serveHistory, "force") / this.app.serveHistory.length;
 
       this.els.forwardAvg.innerHTML = forwardAvg.toFixed(0) + "°";
       this.els.sideAvg.innerHTML    = sideAvg.toFixed(0)    + "°";
