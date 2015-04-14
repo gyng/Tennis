@@ -33,6 +33,10 @@ ul {
   visibility: hidden;
 }
 
+.none {
+  display: none;
+}
+
 .disable {
   pointer-events: none;
   opacity: 0.5;
@@ -83,6 +87,34 @@ ul {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.button {
+  background-color: #526e82;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  cursor: pointer;
+  margin: 0.5rem;
+  text-transform: uppercase;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.button:hover {
+  background-color: #627e92;
+}
+
+.button:active {
+  background-color: #ff9999;
+}
+
+.button .toggled {
+  background-color: #ff8989;
 }
 
 #start-serving form {
@@ -256,12 +288,12 @@ ul {
   margin: 0.5rem;
 }
 
-.serve-type-toggle .active-serve {
-  background-color: #ff8989;
-}
-
 .serve-type-toggle .active-serve:hover {
   background-color: #ff9999;
+}
+
+.serve-type-toggle .active-serve, .all-serves-toggle {
+  background-color: #ff8989;
 }
 
 .nav {
@@ -284,34 +316,6 @@ ul {
 
 .showbox div  {
   border: 1px solid red;
-}
-
-.button {
-  background-color: #526e82;
-  color: white;
-  text-align: center;
-  padding: 1rem;
-  cursor: pointer;
-  margin: 0.5rem;
-  text-transform: uppercase;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.button:hover {
-  background-color: #627e92;
-}
-
-.button:active {
-  background-color: #ff9999;
-}
-
-.button .toggled {
-  background-color: #ff8989;
 }
 
 #url {

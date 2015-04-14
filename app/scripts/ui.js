@@ -160,6 +160,10 @@ UI.prototype = {
     this.hide(this.els.homeButton);
     this.hide(this.els.serveToggle);
     this.hide(this.els.pinButton);
+    this.none(this.els.allServesToggle);
+    this.enable(this.els.homeButton);
+    this.enable(this.els.serveToggle);
+    this.enable(this.els.pinButton);
 
     switch (pageSelector) {
       case "#home":
@@ -173,6 +177,9 @@ UI.prototype = {
         break;
       case "#log":
         this.unhide(this.els.homeButton);
+        this.unhide(this.els.serveToggle);
+        this.unnone(this.els.allServesToggle);
+        this.disable(this.els.serveToggle);
         break;
     }
   },
@@ -231,6 +238,14 @@ UI.prototype = {
 
   hide: function (el) {
     el.classList.add("hide");
+  },
+
+  none: function (el) {
+    el.classList.add("none");
+  },
+
+  unnone: function (el) {
+    el.classList.remove("none");
   },
 
   unhide: function (el) {
